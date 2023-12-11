@@ -1,0 +1,12 @@
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/brotli/x64-windows-rel/CMakeFiles/brotlicommon.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/brotli/x64-windows-rel/CMakeFiles/brotlidec.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/brotli/x64-windows-rel/CMakeFiles/brotlienc.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/brotli/x64-windows-rel/CMakeFiles/brotlicommon-static.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/brotli/x64-windows-rel/CMakeFiles/brotlidec-static.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/brotli/x64-windows-rel/CMakeFiles/brotlienc-static.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/brotli/x64-windows-rel/CMakeFiles/brotli.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/brotli/x64-windows-rel/CMakeFiles/edit_cache.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/brotli/x64-windows-rel/CMakeFiles/rebuild_cache.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/brotli/x64-windows-rel/CMakeFiles/list_install_components.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/brotli/x64-windows-rel/CMakeFiles/install.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/brotli/x64-windows-rel/CMakeFiles/install/local.dir

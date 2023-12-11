@@ -1,0 +1,10 @@
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/libpng/x64-windows-dbg/CMakeFiles/genfiles.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/libpng/x64-windows-dbg/CMakeFiles/png.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/libpng/x64-windows-dbg/CMakeFiles/pngfix.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/libpng/x64-windows-dbg/CMakeFiles/png-fix-itxt.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/libpng/x64-windows-dbg/CMakeFiles/test.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/libpng/x64-windows-dbg/CMakeFiles/edit_cache.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/libpng/x64-windows-dbg/CMakeFiles/rebuild_cache.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/libpng/x64-windows-dbg/CMakeFiles/list_install_components.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/libpng/x64-windows-dbg/CMakeFiles/install.dir
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/libpng/x64-windows-dbg/CMakeFiles/install/local.dir

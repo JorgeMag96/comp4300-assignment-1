@@ -1,0 +1,190 @@
+Package: vcpkg-cmake-config
+Version: 2022-02-06
+Port-Version: 1
+Architecture: x64-windows
+Multi-Arch: same
+Abi: b346da7b9ce3670e7812435c4456cee95aba044d1608feecc4304c139ab29149
+Status: install ok installed
+
+Package: vcpkg-cmake
+Version: 2023-05-04
+Architecture: x64-windows
+Multi-Arch: same
+Abi: b1239435f0ef94d43249b915642523bb3957a58fe6b155a0138d4ceb16a147f2
+Status: install ok installed
+
+Package: stb
+Version: 2023-04-11
+Port-Version: 1
+Architecture: x64-windows
+Multi-Arch: same
+Abi: e5a62bce523f765fbfe7c8e65c403cd2b05ee414bfafb3740825d91c9b71d1f7
+Description: public domain header-only libraries
+Status: install ok installed
+
+Package: egl-registry
+Version: 2022-09-20
+Architecture: x64-windows
+Multi-Arch: same
+Abi: e620d63127c2218c5c9eb47c4249871e6db975c83c7172e9221553231e01d94a
+Description: the EGL API and Extension Registry
+Status: install ok installed
+
+Package: opengl-registry
+Version: 2022-09-29
+Port-Version: 1
+Depends: egl-registry
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 0977a8dcaf2090425f2d1b41ddd3baab53b97cf7932e291106420c074ac4df09
+Description: the API and Extension registries for the OpenGL family APIs
+Status: install ok installed
+
+Package: opengl
+Version: 2022-12-04
+Port-Version: 3
+Depends: opengl-registry
+Architecture: x64-windows
+Multi-Arch: same
+Abi: bd6e2b2ec43e7574f9f8d620c5d60ff24bdfa321050e49b764083248503a15c9
+Description: Open Graphics Library (OpenGL)[3][4][5] is a cross-language, cross-platform application programming interface (API) for rendering 2D and 3D vector graphics.
+Status: install ok installed
+
+Package: openal-soft
+Version: 1.23.1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 165f1dd553bf4a072d9ccbdc5f18b65126d7d189302373febf5ffc16a3e4e862
+Description: OpenAL Soft is an LGPL-licensed, cross-platform, software implementation of the OpenAL 3D audio API.
+Status: install ok installed
+
+Package: libogg
+Version: 1.3.5
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 7e7f2b9fbdd740d925fce0f163ef8e0ad98947d6303573855e4a6aa2c9d4b72e
+Description: Ogg is a multimedia container format, and the native file and stream format for the Xiph.org multimedia codecs.
+Status: install ok installed
+
+Package: libvorbis
+Version: 1.3.7
+Port-Version: 2
+Depends: libogg, vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 5390ca5b2546e9f896b2c3d642a945b665ef2d405d0712a562a9b529decc5d96
+Description: Ogg Vorbis is a fully open, non-proprietary, patent-and-royalty-free, general-purpose compressed audio format
+Status: install ok installed
+
+Package: libflac
+Version: 1.4.2
+Depends: libogg, vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: bc71175a1de0a6ce3faec29198599e667cdaeeeb7bd77dc86c7432fff7a73c38
+Description: Library for manipulating FLAC files
+Status: install ok installed
+
+Package: zlib
+Version: 1.3
+Depends: vcpkg-cmake
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 7de5140c1a32bfa26c1e1cd2874f0e4875214632596a28f33ad23ed3f6465380
+Description: A compression library
+Status: install ok installed
+
+Package: libpng
+Version: 1.6.39
+Port-Version: 1
+Depends: vcpkg-cmake, vcpkg-cmake-config, zlib
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 8d0d13b863cbef5cf0e57fdac7c78308c270b45ad74a06674127206cccf1052d
+Description: libpng is a library implementing an interface for reading and writing PNG (Portable Network Graphics) format files
+Status: install ok installed
+
+Package: bzip2
+Version: 1.0.8
+Port-Version: 5
+Depends: vcpkg-cmake
+Architecture: x64-windows
+Multi-Arch: same
+Abi: e705934dc1329a7d678e79882cd1bc546d42046252c0f95b573bd5d818b731f4
+Description: bzip2 is a freely available, patent free, high-quality data compressor. It typically compresses files to within 10% to 15% of the best available techniques (the PPM family of statistical compressors), whilst being around twice as fast at compression and six times faster at decompression.
+Default-Features: tool
+Status: install ok installed
+
+Package: bzip2
+Feature: tool
+Architecture: x64-windows
+Multi-Arch: same
+Description: Builds bzip2 executable
+Status: install ok installed
+
+Package: brotli
+Version: 1.0.9
+Port-Version: 5
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: c4d825c2d5e522efe47471603c2f36cfe11457146df5acf7f68005ec2ab94b94
+Description: a generic-purpose lossless compression algorithm that compresses data using a combination of a modern variant of the LZ77 algorithm, Huffman coding and 2nd order context modeling.
+Status: install ok installed
+
+Package: freetype
+Version: 2.12.1
+Port-Version: 3
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: a8cb6ed27d457f8cec23af79beea569f0841f07e329f32c322e00bf8c787be91
+Description: A library to render fonts.
+Default-Features: brotli, bzip2, png, zlib
+Status: install ok installed
+
+Package: freetype
+Feature: brotli
+Depends: brotli
+Architecture: x64-windows
+Multi-Arch: same
+Description: Support decompression of WOFF2 streams
+Status: install ok installed
+
+Package: freetype
+Feature: bzip2
+Depends: bzip2
+Architecture: x64-windows
+Multi-Arch: same
+Description: Support bzip2 compressed fonts.
+Status: install ok installed
+
+Package: freetype
+Feature: png
+Depends: libpng
+Architecture: x64-windows
+Multi-Arch: same
+Description: Support PNG compressed OpenType embedded bitmaps.
+Status: install ok installed
+
+Package: freetype
+Feature: zlib
+Depends: zlib
+Architecture: x64-windows
+Multi-Arch: same
+Description: Use zlib instead of internal library for DEFLATE
+Status: install ok installed
+
+Package: sfml
+Version: 2.6.0
+Port-Version: 18
+Depends: freetype, libflac, libogg, libvorbis, openal-soft, opengl, stb, vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: f865d96dd8435303d0b56a1c6077dea720f2c7c809f90f36dc52010835f5c38b
+Description: Simple and fast multimedia library
+Status: install ok installed
+

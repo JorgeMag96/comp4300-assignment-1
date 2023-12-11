@@ -1,0 +1,2 @@
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/pkgs/zlib_x64-windows/debug/lib/zlibd.lib
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/pkgs/zlib_x64-windows/debug/bin/zlibd1.dll

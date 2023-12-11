@@ -1,0 +1,17 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "comp4300-assignment-1",
+  "version": "1.0.0",
+  "dependencies": [
+    {
+      "name": "sfml",
+      "version>=": "2.5.1#16"
+    },
+    {
+      "name": "imgui"
+    },
+    {
+      "name": "imgui-sfml"
+    }
+  ]
+}

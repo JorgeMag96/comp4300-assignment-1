@@ -1,0 +1,4 @@
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/pkgs/imgui_x64-windows/debug/lib/imguid.lib
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/pkgs/imgui_x64-windows/debug/share/imgui/imgui-config.cmake
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/pkgs/imgui_x64-windows/debug/share/imgui/imgui-targets.cmake
+C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/pkgs/imgui_x64-windows/debug/share/imgui/imgui-targets-debug.cmake
