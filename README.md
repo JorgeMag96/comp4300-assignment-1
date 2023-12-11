@@ -5,8 +5,8 @@
 
 ### Tools
 - [Visual Studio 2022](https://visualstudio.microsoft.com/vs/)
-- [vcpk C/C++ package manager](https://devblogs.microsoft.com/cppblog/vcpkg-is-now-included-with-visual-studio/)
-- [CMake](https://cmake.org/)
+- [vcpkg](https://devblogs.microsoft.com/cppblog/vcpkg-is-now-included-with-visual-studio/) (C/C++ package manager)
+- [CMake](https://cmake.org/) (build tool)
 
 ### Libraries
 - [SFML - 2.5.1](https://github.com/SFML/SFML) to easily interact with your computer hardware!
