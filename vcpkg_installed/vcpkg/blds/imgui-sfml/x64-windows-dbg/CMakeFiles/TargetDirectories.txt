@@ -1,6 +1,0 @@
-C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/imgui-sfml/x64-windows-dbg/CMakeFiles/ImGui-SFML.dir
-C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/imgui-sfml/x64-windows-dbg/CMakeFiles/edit_cache.dir
-C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/imgui-sfml/x64-windows-dbg/CMakeFiles/rebuild_cache.dir
-C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/imgui-sfml/x64-windows-dbg/CMakeFiles/list_install_components.dir
-C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/imgui-sfml/x64-windows-dbg/CMakeFiles/install.dir
-C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/blds/imgui-sfml/x64-windows-dbg/CMakeFiles/install/local.dir

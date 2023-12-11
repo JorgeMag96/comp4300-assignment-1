@@ -1,2 +1,0 @@
-C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/pkgs/bzip2_x64-windows/debug/lib/bz2d.lib
-C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/pkgs/bzip2_x64-windows/debug/bin/bz2d.dll

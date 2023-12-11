@@ -1,6 +1,0 @@
-C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/pkgs/imgui-sfml_x64-windows/lib/ImGui-SFML.lib
-C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/pkgs/imgui-sfml_x64-windows/include/imgui-SFML.h
-C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/pkgs/imgui-sfml_x64-windows/include/imgui-SFML_export.h
-C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/pkgs/imgui-sfml_x64-windows/include/imconfig-SFML.h
-C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/pkgs/imgui-sfml_x64-windows/lib/cmake/ImGui-SFML/ImGui-SFMLConfig.cmake
-C:/Users/jorge/GitHub/comp4300-assignment-1/vcpkg_installed/vcpkg/pkgs/imgui-sfml_x64-windows/lib/cmake/ImGui-SFML/ImGui-SFMLConfig-release.cmake
