@@ -7,7 +7,7 @@
 - [CMake](https://cmake.org/)
 
 ### Libraries
-- [SFML - 2.5.1](https://www.sfml-dev.org/)
+- [SFML - 2.5.1](https://github.com/SFML/SFML)
 - [imgui-sfml](https://github.com/SFML/imgui-sfml)
 - [imgui](https://github.com/ocornut/imgui)
 - [yaml-cpp](https://github.com/jbeder/yaml-cpp)
