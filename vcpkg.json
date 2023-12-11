@@ -12,6 +12,9 @@
     },
     {
       "name": "imgui-sfml"
+    },
+    {
+      "name": "yaml-cpp"
     }
   ]
 }
