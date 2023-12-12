@@ -1,7 +1,7 @@
 # COMP 4300 - Fall 2023 - C++ Game Programming
 ## Assignment 1
 
-![sample_img](./docs/comp4300_assignment_1_setup.PNG)
+![sample_gif](./docs/assignment1.gif)
 
 ### Tools
 - [Visual Studio 2022](https://visualstudio.microsoft.com/vs/)

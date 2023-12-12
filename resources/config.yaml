@@ -1,4 +1,4 @@
-width: 1920
-height: 1080
+screen-width: 1920
+screen-height: 1080
 frame-rate-limit: 60
 font-file: "resources/fonts/pixelated_arial_bold_11.ttf"
