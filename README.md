@@ -12,7 +12,7 @@
 - [SFML - 2.5.1](https://github.com/SFML/SFML) to easily interact with your computer hardware!
 - [imgui-sfml](https://github.com/SFML/imgui-sfml) integration library to render imgui with sfml
 - [imgui](https://github.com/ocornut/imgui) powerful user interface library to easily interact with our application
-- [yaml-cpp](https://github.com/jbeder/yaml-cpp) to read/parse [config.yaml](./resources/config.yaml) (but **WHY** yaml !?, more info can be found [here](https://youtu.be/0fbnyS_lHW4?si=hjHXULo6H4xgrBrr))
+- [yaml-cpp](https://github.com/jbeder/yaml-cpp) to read/parse [config.yaml](./resources/config.yaml) (but **WHY** yaml !?, watch the following [video](https://www.youtube.com/watch?v=BEki_rsWu4E&ab_channel=KahanDataSolutions))
 
 ### Setup
 
