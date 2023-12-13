@@ -2,3 +2,32 @@ screen-width: 1920
 screen-height: 1080
 frame-rate-limit: 60
 font-file: "resources/fonts/pixelated_arial_bold_11.ttf"
+
+shapes:
+  - name: CGreen
+    type: Circle # Currently only supporting types: 'Circle', 'Rectangle'
+    display-text: Circle Green
+    radius: 60
+    segments: 48
+    velocity-x: 120.0
+    velocity-y: 80.0
+    color: [128, 235, 52, 255] # Color in RGBA (Red, Green, Blue, Alpha) format
+    draw: true
+  - name: CYellow
+    type: Circle
+    display-text: Circle Yellow
+    radius: 100
+    segments: 48
+    velocity-x: -80.0
+    velocity-y: 100.0
+    color: [233, 245, 66, 255]
+    draw: true
+  - name: RRed
+    type: Rectangle
+    display-text: Rectangle Red
+    width: 60
+    height: 20
+    velocity-x: 40.0
+    velocity-y: 40.0
+    color: [224, 61, 61, 255]
+    draw: true

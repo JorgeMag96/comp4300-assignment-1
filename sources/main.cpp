@@ -1,15 +1,128 @@
-﻿#include "assignment.h"
+﻿#define _USE_MATH_DEFINES
+#include "assignment.h"
+
+enum ShapeTypeEnum
+{
+	CIRCLE,
+	RECTANGLE
+};
+
+struct CircleConfig {
+	const ShapeTypeEnum shape_type = CIRCLE;
+	std::string		name;
+	sf::CircleShape	shape;
+	sf::Text		text;
+	int				radius = 10;
+	int				segments = 30;
+	float			velocity_x = 10.f;
+	float			velocity_y = 10.f;
+	float			color[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	bool			draw = true;
+	bool			draw_text = true;
+
+};
+
+struct RectangleConfig {
+	const ShapeTypeEnum shape_type = RECTANGLE;
+	std::string name;
+	std::string display_text;
+	int			width = 60;
+	int			height = 20;
+	float		speed = 10.f;
+	int			direction_angle = 45;
+	int			color[4] = {255, 255, 255, 255};
+	bool		draw = true;
+	bool		draw_text = true;
+};
+
+struct AssignmentConfig {
+	int	screen_width = 1920;
+	int screen_height = 1080;
+	int frame_rate_limit = 60;
+	std::string font_file;
+	std::vector<CircleConfig> circles;
+	std::vector<RectangleConfig> rectangles;
+};
+
+AssignmentConfig config;
 
 int main(int argc, char* argv[])
 {
-	YAML::Node config = YAML::LoadFile("resources/config.yaml");
+	YAML::Node yaml_config = YAML::LoadFile("resources/config.yaml");
 
-	int			screen_width		= config["screen-width"].as<int>();
-	int			screen_height		= config["screen-height"].as<int>();
-	int			frame_rate_limit	= config["frame-rate-limit"].as<int>();
-	std::string font_file			= config["font-file"].as<std::string>();
+	// Parse root settings from YAML
+	config.screen_width			= yaml_config["screen-width"].as<int>();
+	config.screen_height		= yaml_config["screen-height"].as<int>();
+	config.frame_rate_limit		= yaml_config["frame-rate-limit"].as<int>();
+	config.font_file			= yaml_config["font-file"].as<std::string>();
 
-	sf::RenderWindow window(sf::VideoMode(screen_width, screen_height), "COMP4300 Assignment 1");
+	// Load a font so we can display some text
+	sf::Font my_font;
+	if (!my_font.loadFromFile(config.font_file)) // attempt to load the font from file
+	{
+		exit(EXIT_FAILURE);
+	}
+
+	// Parse shapes from YAML
+	std::cout << "Parsing shapes from YAML..." << std::endl;
+
+	auto shapes = yaml_config["shapes"].as<std::vector<YAML::Node>>();
+	for (std::size_t i = 0; i < shapes.size(); i++) {
+		
+		auto shape = shapes[i];
+		std::cout << shape << "----------" << "\n";
+
+		if (shape["type"].as<std::string>() == "Circle")
+		{
+			CircleConfig circle_config;
+			circle_config.name				= shape["name"].as<std::string>();
+			circle_config.text				= { shape["display-text"].as<std::string>(), my_font, 24 };
+			circle_config.radius			= std::fmax(shape["radius"].as<int>(), 1);
+			circle_config.segments			= std::fmax(shape["segments"].as<int>(), 3);
+			circle_config.velocity_x		= shape["velocity-x"].as<float>();
+			circle_config.velocity_y		= shape["velocity-y"].as<float>();
+			auto color_vector				= shape["color"].as<std::vector<int>>();
+			if (color_vector.size() != 4) {
+				std::cerr << "Error while parsing color property for shape with name= " << circle_config.name << ", array should contain 4 integers. example= [255, 255, 255, 255]" << std::endl;
+				exit(EXIT_FAILURE);
+			}
+			circle_config.color[0]	= std::fmin(color_vector[0], 255) / 255.0f;
+			circle_config.color[1]	= std::fmin(color_vector[1], 255) / 255.0f;
+			circle_config.color[2]	= std::fmin(color_vector[2], 255) / 255.0f;
+			circle_config.color[3]	= std::fmin(color_vector[3], 255) / 255.0f;
+			circle_config.draw		= shape["draw"].as<bool>();
+
+			sf::CircleShape* circle_shape = &circle_config.shape;
+			circle_shape->setRadius(circle_config.radius);
+			circle_shape->setPointCount(circle_config.segments);
+			circle_shape->setPosition(config.screen_width / 2, config.screen_height / 2);
+			circle_shape->setFillColor(sf::Color(circle_config.color[0] * 255, circle_config.color[1] * 255, circle_config.color[2] * 255, circle_config.color[3] * 255));
+			config.circles.push_back(circle_config);
+		}
+		/*else if (shape["type"].as<std::string>() == "Rectangle")
+		{
+			RectangleConfig rectangle_config;
+			rectangle_config.name				= shape["name"].as<std::string>();
+			rectangle_config.display_text		= shape["display-text"].as<std::string>();
+			rectangle_config.width				= std::fmax(shape["width"].as<int>(), 1.0f);
+			rectangle_config.height				= std::fmax(shape["height"].as<int>(), 1.0f);
+			rectangle_config.speed				= std::fmax(shape["speed"].as<float>(), 0.0f);
+			rectangle_config.direction_angle	= shape["direction-angle"].as<int>();
+			auto color_vector					= shape["color"].as<std::vector<int>>();
+			if (color_vector.size() != 4) {
+				std::cerr << "Error while parsing color property for shape with name= " << rectangle_config.name << ", array should contain 4 integers. example= [255, 255, 255, 255]" << std::endl;
+				exit(EXIT_FAILURE);
+			}
+			rectangle_config.color[0]	= std::fmin(color_vector[0], 255);
+			rectangle_config.color[1]	= std::fmin(color_vector[1], 255);
+			rectangle_config.color[2]	= std::fmin(color_vector[2], 255);
+			rectangle_config.color[3]	= std::fmin(color_vector[3], 255);
+			rectangle_config.draw		= shape["draw"].as<bool>();
+			config.rectangles.push_back(rectangle_config);
+		}*/
+	}
+
+	sf::RenderWindow window(sf::VideoMode(config.screen_width, config.screen_height), "COMP4300 Assignment 1");
 	//window.setFramerateLimit(frame_rate_limit);
 
 	// Initialize IMGUI and create a clock used for internal timing
@@ -20,34 +133,14 @@ int main(int argc, char* argv[])
 	ImGui::GetStyle().ScaleAllSizes(1.0f);
 	ImGui::GetIO().FontGlobalScale = 1.6f;
 
-	// the imgui color {r, g, b } wheel requires floats from 0-1 instead of ints from 0-255
-	float black_color[3] = { 0.0f, 0.0f, 0.0f };
+	CircleConfig*		current_circle_config		= &config.circles[0];
+	sf::CircleShape*	current_circle_shape		= &(current_circle_config->shape);
+	sf::Text*			current_text				= &(current_circle_config->text);
+	std::string			current_display_text		= current_text->getString().toAnsiString();
+	float*				current_color				= current_circle_config->color;
 
-	// Load a font so we can display some text
-	sf::Font my_font;
-	if (!my_font.loadFromFile(font_file)) // attempt to load the font from a file
-	{
-		exit(EXIT_FAILURE);
-	}
 
-	static const char* items[]{ "One","Two","three" };
-	static int selected_item = 0;
-
-	bool draw_text = true;
-	bool draw_circle = true;
-
-	float c[4] = {1.f, 1.f, 1.f, 1.f};
-	float circle_a_radius = 100.0f;
-	int circle_a_segments = 30;
-	float circle_a_speed_x = 10.0f;
-	float circle_a_speed_y = 10.0f;
-	sf::CircleShape circle_a(circle_a_radius, circle_a_segments);
-	circle_a.setFillColor(sf::Color(c[0] * 255, c[1] * 255, c[2] * 255, c[3] * 255));
-	circle_a.setPosition((screen_width / 2) - circle_a.getRadius(), (screen_height / 2) - circle_a.getRadius());
-	char circle_a_display_string[255] = "Circle A";
-	sf::Text circle_a_text(circle_a_display_string, my_font, 24);
-
-	// main loop - continues for each frame while window is open
+	bool pause_simulation = false;
 	while (window.isOpen())
 	{
 		float delta_time = delta_clock.getElapsedTime().asSeconds();
@@ -60,6 +153,7 @@ int main(int argc, char* argv[])
 			if (event.type == sf::Event::Closed)
 			{
 				window.close();
+				// TODO: Save all shapes configurations to config.yaml
 				exit(EXIT_SUCCESS);
 			}
 
@@ -68,6 +162,7 @@ int main(int argc, char* argv[])
 				std::cout << "Key pressed: " << event.key.code << std::endl;
 				if (event.key.code == 36) { // Escape key pressed, close window.
 					window.close();
+					// TODO: Save all shapes configurations to config.yaml
 					exit(EXIT_SUCCESS);
 				}
 			}
@@ -75,58 +170,102 @@ int main(int argc, char* argv[])
 
 		window.clear();
 
-		if (draw_circle)
-		{
-			window.draw(circle_a);
-		}
-
-		if (draw_text)
-		{
-			window.draw(circle_a_text);
-		}
-
-		// Draw the ImGUI windows last so it's on top
 		ImGui::SFML::Update(window, delta_clock.restart());
 		ImGui::Begin("Shape Properties");
-		if (ImGui::Combo("Circle", &selected_item, items, IM_ARRAYSIZE(items)))
+		if (ImGui::BeginCombo("Circle", current_circle_config->name.c_str()))
 		{
-			std::cout << "Selected: " << selected_item << std::endl;
+			for (size_t i = 0; i < config.circles.size(); i++)
+			{
+				CircleConfig* circle_config = &config.circles[i];
+				bool isSelected = (circle_config == current_circle_config);
+				if (ImGui::Selectable(circle_config->name.c_str(), &isSelected))
+				{
+					current_circle_config	= circle_config;
+					current_circle_shape	= &(current_circle_config->shape);
+					current_text			= &(current_circle_config->text);
+					current_display_text	= current_text->getString().toAnsiString();
+					current_color			= current_circle_config->color;
+				}
+			}
+			ImGui::EndCombo();
 		}
-		ImGui::Checkbox("Draw Circle", &draw_circle);
+		ImGui::Checkbox("Draw Circle", &(current_circle_config->draw));
 		ImGui::SameLine();
-		ImGui::Checkbox("Draw Text", &draw_text);
+		ImGui::Checkbox("Draw Text", &(current_circle_config->draw_text));
+		ImGui::SliderFloat("Velocity X", &(current_circle_config->velocity_x), -500.f, 500.f);
+		ImGui::SliderFloat("Velocity Y", &(current_circle_config->velocity_y), -500.f, 500.f);
 
-		ImGui::SliderFloat("Speed X", &circle_a_speed_x, -500, 500);
-		ImGui::SliderFloat("Speed Y", &circle_a_speed_y, -500, 500);
-		ImGui::SliderFloat("Radius", &circle_a_radius, 0.0f, 300.0f);
-		ImGui::SliderInt("Sides", &circle_a_segments, 3, 64);
-		ImGui::ColorEdit4("Color", c);
+		if (current_circle_config->shape_type == ShapeTypeEnum::CIRCLE) {
+			if (ImGui::SliderInt("Radius", &(current_circle_config->radius), 1, 300))
+			{
+				current_circle_shape->setRadius(current_circle_config->radius);
+			}
+		}
+
+		if (ImGui::SliderInt("Sides", &(current_circle_config->segments), 3, 64))
+		{
+			current_circle_shape->setPointCount(current_circle_config->segments);
+		}
 		
-		ImGui::InputText("Text", circle_a_display_string, 255);
+		if (ImGui::ColorEdit4("Color", current_color))
+		{
+			current_circle_shape->setFillColor(sf::Color(current_color[0] * 255, current_color[1] * 255, current_color[2] * 255, current_color[3] * 255));
+		}
+		
+		ImGui::InputText("Text", &current_display_text);
 		if (ImGui::Button("Set Text"))
 		{
-			circle_a_text.setString(circle_a_display_string);
+			current_text->setString(current_display_text);
 		}
 		ImGui::SameLine();
 		if (ImGui::Button("Reset Circle"))
 		{
-			circle_a.setPosition((screen_width / 2) - circle_a.getRadius(), (screen_height / 2) - circle_a.getRadius());
+			current_circle_config->shape.setPosition((window.getSize().x / 2) - current_circle_config->radius, (window.getSize().y / 2) - current_circle_config->radius);
+		}
+		ImGui::Checkbox("Pause Simulation", &pause_simulation);
+		ImGui::End();
+
+		// Draw all shapes
+		for (auto& circle : config.circles)
+		{
+			auto* circle_shape_ptr = &circle.shape;
+			auto* circle_text_ptr = &circle.text;
+
+			if (!pause_simulation) {
+				auto updated_circle_position_x = circle_shape_ptr->getPosition().x + (circle.velocity_x * delta_time);
+				auto updated_circle_position_y = circle_shape_ptr->getPosition().y - (circle.velocity_y * delta_time);
+				circle_shape_ptr->setPosition(updated_circle_position_x, updated_circle_position_y);
+
+				if (updated_circle_position_x <= 0 || updated_circle_position_x >= config.screen_width - (circle_shape_ptr->getRadius() * 2))
+				{
+					circle.velocity_x *= -1;
+				}
+
+				if (updated_circle_position_y <= 0 || updated_circle_position_y + (circle_shape_ptr->getRadius() * 2) >= config.screen_height)
+				{
+			
+					circle.velocity_y *= -1;
+				}
+
+				auto updated_text_position_x = circle_shape_ptr->getPosition().x + circle_shape_ptr->getRadius() - (circle_text_ptr->getGlobalBounds().width / 2);
+				auto updated_text_position_y = circle_shape_ptr->getPosition().y + circle_shape_ptr->getRadius() - (circle_text_ptr->getGlobalBounds().height);
+				circle_text_ptr->setPosition(updated_text_position_x, updated_text_position_y);
+			}
+
+			if (circle.draw)
+			{
+				window.draw(*circle_shape_ptr);
+			}
+
+			if (circle.draw_text)
+			{
+				window.draw(*circle_text_ptr);
+			}
 		}
 
-		ImGui::End();
-		ImGui::SFML::Render(window);
+		ImGui::SFML::Render(window); // Lastly draw ImGUI so that it shows on top
 
-		circle_a.setRadius(circle_a_radius);
-		circle_a.setPointCount(circle_a_segments);
-		circle_a.setFillColor(sf::Color(c[0] * 255, c[1] * 255, c[2] * 255, c[3] * 255));
-		circle_a.setPosition(circle_a.getPosition().x + (circle_a_speed_x * delta_time), circle_a.getPosition().y + (circle_a_speed_y * delta_time));
-		circle_a_text.setPosition(
-			circle_a.getPosition().x + circle_a.getRadius() - (circle_a_text.getGlobalBounds().width / 2),
-			circle_a.getPosition().y + circle_a.getRadius() - (circle_a_text.getGlobalBounds().height)
-		);
-
-		// Update the window
-		window.display(); 
+		window.display(); // Display on screen what has been rendered to the window so far
 	}
 
 	return 0;
