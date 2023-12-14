@@ -7,6 +7,7 @@
 #include <memory>
 #include <fstream>
 #include <math.h>
+#include <ctime>
 
 #include <SFML/Graphics.hpp>
 #include <imgui.h>

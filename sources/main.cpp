@@ -1,5 +1,4 @@
-﻿#define _USE_MATH_DEFINES
-#include "assignment.h"
+﻿#include "assignment.h"
 
 enum ShapeTypeEnum
 {
@@ -19,20 +18,21 @@ struct CircleConfig {
 	float			color[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
 	bool			draw = true;
 	bool			draw_text = true;
-
+	std::clock_t	last_collision_clock = std::clock();
 };
 
 struct RectangleConfig {
 	const ShapeTypeEnum shape_type = RECTANGLE;
-	std::string name;
-	std::string display_text;
-	int			width = 60;
-	int			height = 20;
-	float		speed = 10.f;
-	int			direction_angle = 45;
-	int			color[4] = {255, 255, 255, 255};
-	bool		draw = true;
-	bool		draw_text = true;
+	std::string			name;
+	sf::RectangleShape	shape;
+	sf::Text			text;
+	int					width = 60;
+	int					height = 20;
+	float				velocity_x = 10.f;
+	float				velocity_y = 10.f;
+	float				color[4] = { 1.0f, 1.0f, 1.0f, 1.0f };
+	bool				draw = true;
+	bool				draw_text = true;
 };
 
 struct AssignmentConfig {
@@ -45,6 +45,12 @@ struct AssignmentConfig {
 };
 
 AssignmentConfig config;
+
+double elapsedTimeMillis(std::clock_t c_start)
+{
+	double time_elapsed_ms = 1000.0 * (std::clock() - c_start) / CLOCKS_PER_SEC;
+	return time_elapsed_ms;
+}
 
 int main(int argc, char* argv[])
 {
@@ -70,7 +76,7 @@ int main(int argc, char* argv[])
 	for (std::size_t i = 0; i < shapes.size(); i++) {
 		
 		auto shape = shapes[i];
-		std::cout << shape << "----------" << "\n";
+		std::cout << shape << std::endl <<"----------" << std::endl;
 
 		if (shape["type"].as<std::string>() == "Circle")
 		{
@@ -86,11 +92,13 @@ int main(int argc, char* argv[])
 				std::cerr << "Error while parsing color property for shape with name= " << circle_config.name << ", array should contain 4 integers. example= [255, 255, 255, 255]" << std::endl;
 				exit(EXIT_FAILURE);
 			}
-			circle_config.color[0]	= std::fmin(color_vector[0], 255) / 255.0f;
-			circle_config.color[1]	= std::fmin(color_vector[1], 255) / 255.0f;
-			circle_config.color[2]	= std::fmin(color_vector[2], 255) / 255.0f;
-			circle_config.color[3]	= std::fmin(color_vector[3], 255) / 255.0f;
+			circle_config.color[0]	= std::fmin(std::fmax(color_vector[0], 0), 255) / 255.0f;
+			circle_config.color[1]	= std::fmin(std::fmax(color_vector[1], 0), 255) / 255.0f;
+			circle_config.color[2]	= std::fmin(std::fmax(color_vector[2], 0), 255) / 255.0f;
+			circle_config.color[3]	= std::fmin(std::fmax(color_vector[3], 0), 255) / 255.0f;
 			circle_config.draw		= shape["draw"].as<bool>();
+			circle_config.draw		= shape["draw"].as<bool>();
+			circle_config.draw_text = shape["draw-text"].as<bool>();
 
 			sf::CircleShape* circle_shape = &circle_config.shape;
 			circle_shape->setRadius(circle_config.radius);
@@ -99,27 +107,33 @@ int main(int argc, char* argv[])
 			circle_shape->setFillColor(sf::Color(circle_config.color[0] * 255, circle_config.color[1] * 255, circle_config.color[2] * 255, circle_config.color[3] * 255));
 			config.circles.push_back(circle_config);
 		}
-		/*else if (shape["type"].as<std::string>() == "Rectangle")
+		else if (shape["type"].as<std::string>() == "Rectangle")
 		{
 			RectangleConfig rectangle_config;
 			rectangle_config.name				= shape["name"].as<std::string>();
-			rectangle_config.display_text		= shape["display-text"].as<std::string>();
+			rectangle_config.text				= { shape["display-text"].as<std::string>(), my_font, 24 };
 			rectangle_config.width				= std::fmax(shape["width"].as<int>(), 1.0f);
 			rectangle_config.height				= std::fmax(shape["height"].as<int>(), 1.0f);
-			rectangle_config.speed				= std::fmax(shape["speed"].as<float>(), 0.0f);
-			rectangle_config.direction_angle	= shape["direction-angle"].as<int>();
+			rectangle_config.velocity_x			= shape["velocity-x"].as<float>();
+			rectangle_config.velocity_y			= shape["velocity-y"].as<float>();
 			auto color_vector					= shape["color"].as<std::vector<int>>();
 			if (color_vector.size() != 4) {
 				std::cerr << "Error while parsing color property for shape with name= " << rectangle_config.name << ", array should contain 4 integers. example= [255, 255, 255, 255]" << std::endl;
 				exit(EXIT_FAILURE);
 			}
-			rectangle_config.color[0]	= std::fmin(color_vector[0], 255);
-			rectangle_config.color[1]	= std::fmin(color_vector[1], 255);
-			rectangle_config.color[2]	= std::fmin(color_vector[2], 255);
-			rectangle_config.color[3]	= std::fmin(color_vector[3], 255);
+			rectangle_config.color[0]	= std::fmin(std::fmax(color_vector[0], 0), 255) / 255.0f;
+			rectangle_config.color[1]	= std::fmin(std::fmax(color_vector[1], 0), 255) / 255.0f;
+			rectangle_config.color[2]	= std::fmin(std::fmax(color_vector[2], 0), 255) / 255.0f;
+			rectangle_config.color[3]	= std::fmin(std::fmax(color_vector[3], 0), 255) / 255.0f;
 			rectangle_config.draw		= shape["draw"].as<bool>();
+			rectangle_config.draw_text	= shape["draw-text"].as<bool>();
+
+			sf::RectangleShape* rectangle_shape = &rectangle_config.shape;
+			rectangle_shape->setSize({ (float)rectangle_config.width, (float)rectangle_config.height });
+			rectangle_shape->setPosition(config.screen_width / 2, config.screen_height / 2);
+			rectangle_shape->setFillColor(sf::Color(rectangle_config.color[0] * 255, rectangle_config.color[1] * 255, rectangle_config.color[2] * 255, rectangle_config.color[3] * 255));
 			config.rectangles.push_back(rectangle_config);
-		}*/
+		}
 	}
 
 	sf::RenderWindow window(sf::VideoMode(config.screen_width, config.screen_height), "COMP4300 Assignment 1");
@@ -172,7 +186,7 @@ int main(int argc, char* argv[])
 
 		ImGui::SFML::Update(window, delta_clock.restart());
 		ImGui::Begin("Shape Properties");
-		if (ImGui::BeginCombo("Circle", current_circle_config->name.c_str()))
+		if (ImGui::BeginCombo("Name", current_circle_config->name.c_str()))
 		{
 			for (size_t i = 0; i < config.circles.size(); i++)
 			{
@@ -189,7 +203,7 @@ int main(int argc, char* argv[])
 			}
 			ImGui::EndCombo();
 		}
-		ImGui::Checkbox("Draw Circle", &(current_circle_config->draw));
+		ImGui::Checkbox("Draw Shape", &(current_circle_config->draw));
 		ImGui::SameLine();
 		ImGui::Checkbox("Draw Text", &(current_circle_config->draw_text));
 		ImGui::SliderFloat("Velocity X", &(current_circle_config->velocity_x), -500.f, 500.f);
@@ -200,11 +214,21 @@ int main(int argc, char* argv[])
 			{
 				current_circle_shape->setRadius(current_circle_config->radius);
 			}
+			if (ImGui::SliderInt("Sides", &(current_circle_config->segments), 3, 64))
+			{
+				current_circle_shape->setPointCount(current_circle_config->segments);
+			}
 		}
 
-		if (ImGui::SliderInt("Sides", &(current_circle_config->segments), 3, 64))
-		{
-			current_circle_shape->setPointCount(current_circle_config->segments);
+		if (current_circle_config->shape_type == ShapeTypeEnum::RECTANGLE) {
+			if (ImGui::SliderInt("Width", &(current_circle_config->radius), 1, 300))
+			{
+				//current_circle_shape->setRadius(current_circle_config->radius);
+			}
+			if (ImGui::SliderInt("Height", &(current_circle_config->radius), 1, 300))
+			{
+				//current_circle_shape->setRadius(current_circle_config->radius);
+			}
 		}
 		
 		if (ImGui::ColorEdit4("Color", current_color))
@@ -218,14 +242,14 @@ int main(int argc, char* argv[])
 			current_text->setString(current_display_text);
 		}
 		ImGui::SameLine();
-		if (ImGui::Button("Reset Circle"))
+		if (ImGui::Button("Reset Position"))
 		{
 			current_circle_config->shape.setPosition((window.getSize().x / 2) - current_circle_config->radius, (window.getSize().y / 2) - current_circle_config->radius);
 		}
 		ImGui::Checkbox("Pause Simulation", &pause_simulation);
 		ImGui::End();
 
-		// Draw all shapes
+		// Draw all circles
 		for (auto& circle : config.circles)
 		{
 			auto* circle_shape_ptr = &circle.shape;
@@ -236,15 +260,24 @@ int main(int argc, char* argv[])
 				auto updated_circle_position_y = circle_shape_ptr->getPosition().y - (circle.velocity_y * delta_time);
 				circle_shape_ptr->setPosition(updated_circle_position_x, updated_circle_position_y);
 
+				// Collisions on left/right screen bounds
 				if (updated_circle_position_x <= 0 || updated_circle_position_x >= config.screen_width - (circle_shape_ptr->getRadius() * 2))
 				{
-					circle.velocity_x *= -1;
+					if (elapsedTimeMillis(circle.last_collision_clock) > (1000 / config.frame_rate_limit)) // Only change direction if at least one loop tick has elapsed.
+					{
+						circle.velocity_x *= -1;
+						circle.last_collision_clock = std::clock();
+					}
 				}
 
-				if (updated_circle_position_y <= 0 || updated_circle_position_y + (circle_shape_ptr->getRadius() * 2) >= config.screen_height)
+				// Collisions on top/bottom screen bounds
+				if (updated_circle_position_y <= 0 || updated_circle_position_y + (circle_shape_ptr->getRadius() * 2) >= config.screen_height) 
 				{
-			
-					circle.velocity_y *= -1;
+					if (elapsedTimeMillis(circle.last_collision_clock) > (1000 / config.frame_rate_limit)) // Only change direction if at least one loop tick has elapsed.
+					{
+						circle.velocity_y *= -1;
+						circle.last_collision_clock = std::clock();
+					}
 				}
 
 				auto updated_text_position_x = circle_shape_ptr->getPosition().x + circle_shape_ptr->getRadius() - (circle_text_ptr->getGlobalBounds().width / 2);

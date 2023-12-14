@@ -13,6 +13,7 @@ shapes:
     velocity-y: 80.0
     color: [128, 235, 52, 255] # Color in RGBA (Red, Green, Blue, Alpha) format
     draw: true
+    draw-text: true
   - name: CYellow
     type: Circle
     display-text: Circle Yellow
@@ -22,6 +23,7 @@ shapes:
     velocity-y: 100.0
     color: [233, 245, 66, 255]
     draw: true
+    draw-text: true
   - name: RRed
     type: Rectangle
     display-text: Rectangle Red
@@ -31,3 +33,4 @@ shapes:
     velocity-y: 40.0
     color: [224, 61, 61, 255]
     draw: true
+    draw-text: true
