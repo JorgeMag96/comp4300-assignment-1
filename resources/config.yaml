@@ -1,17 +1,17 @@
 screen-width: 1920
 screen-height: 1080
 frame-rate-limit: 60
-font-file: "resources/fonts/pixelated_arial_bold_11.ttf"
+font-file: resources/fonts/pixelated_arial_bold_11.ttf
 
 shapes:
   - name: CGreen
-    type: Circle # Currently only supporting types: 'Circle', 'Rectangle'
+    type: Circle
     display-text: Circle Green
-    radius: 60
+    radius: 102
     segments: 48
-    velocity-x: 120.0
-    velocity-y: 80.0
-    color: [128, 235, 52, 255] # Color in RGBA (Red, Green, Blue, Alpha) format
+    velocity-x: -120
+    velocity-y: 80
+    color: [148, 206, 107, 255]
     draw: true
     draw-text: true
   - name: CYellow
@@ -19,18 +19,38 @@ shapes:
     display-text: Circle Yellow
     radius: 100
     segments: 48
-    velocity-x: -80.0
-    velocity-y: 100.0
+    velocity-x: 96.7740021
+    velocity-y: -100
     color: [233, 245, 66, 255]
+    draw: true
+    draw-text: true
+  - name: CBlue
+    type: Circle
+    display-text: Circle Blue
+    radius: 190
+    segments: 64
+    velocity-x: -180
+    velocity-y: 100
+    color: [59, 54, 156, 255]
     draw: true
     draw-text: true
   - name: RRed
     type: Rectangle
     display-text: Rectangle Red
-    width: 60
-    height: 20
-    velocity-x: 40.0
-    velocity-y: 40.0
+    width: 200
+    height: 160
+    velocity-x: -80
+    velocity-y: 140
     color: [224, 61, 61, 255]
+    draw: true
+    draw-text: true
+  - name: RPurple
+    type: Rectangle
+    display-text: Rectangle Purple
+    width: 260
+    height: 180
+    velocity-x: -140
+    velocity-y: 40
+    color: [126, 16, 204, 255]
     draw: true
     draw-text: true

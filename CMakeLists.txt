@@ -18,7 +18,7 @@ find_package(ImGui-SFML CONFIG REQUIRED)
 find_package(yaml-cpp CONFIG REQUIRED)
 
 # Create an executable target named 'comp4300-assignment-1' from specified source files.
-add_executable(comp4300-assignment-1 "sources/main.cpp" "sources/assignment.h")
+add_executable(comp4300-assignment-1 "sources/main.cpp" "sources/assignment.h" )
 
 # Link the created executable with the necessary libraries.
 # These libraries are linked in a private scope (which affects their usage in terms of linking and visibility in case of your target being used by other targets)
